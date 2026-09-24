@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta name="theme-color" content="#004A97">
+
+  <title>Administración SSMA | ESM</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    :root {
+      --blue: #004A97;
+      --blue-dark: #003E80;
+      --blue-soft: #D4DBEA;
+
+      --green: #168447;
+      --green-soft: #EAF6EE;
+
+      --orange: #A55D00;
+      --orange-soft: #FFF3DF;
+
+      --red: #B3261E;
+      --red-soft: #FDECEB;
+
+      --gray: #7F8084;
+      --gray-dark: #5F6066;
+
+      --background: #F5F7FA;
+      --border: #DFE5EC;
+      --white: #FFFFFF;
+    }
+
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+      margin: 0;
+      font-family: "Lato", Arial, sans-serif;
+      background: var(--background);
+      color: #282C31;
+    }
+
+
+    /* CABECERA */
+
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    .header-container {
+      width: min(1400px, 96%);
+      min-height: 78px;
+
+      margin: auto;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 20px;
+    }
+
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+
+    .logo {
+      width: 125px;
+      height: auto;
+    }
+
+
+    .brand-info strong {
+      display: block;
+      color: var(--blue);
+      font-size: 16px;
+    }
+
+
+    .brand-info span {
+      display: block;
+      color: var(--gray);
+      font-size: 12px;
+      margin-top: 3px;
+    }
+
+
+    .usuario-box {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      font-size: 13px;
+    }
+
+
+    .usuario-box strong {
+      color: var(--blue);
+    }
+
+
+    /* CONTENIDO */
+
+    main {
+      width: min(1400px, 96%);
+      margin: 30px auto 60px;
+    }
+
+
+    .tag {
+      display: inline-block;
+
+      background: var(--blue-soft);
+      color: var(--blue);
+
+      padding: 7px 14px;
+
+      border-radius: 20px;
+
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+
+      margin-bottom: 9px;
+    }
+
+
+    h1 {
+      color: var(--blue);
+      margin: 0;
+      font-size: 32px;
+    }
+
+
+    .subtitle {
+      color: var(--gray);
+      margin: 7px 0 25px;
+      font-size: 14px;
+    }
+
+
+    /* KPI */
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+
+      margin-bottom: 22px;
+    }
+
+
+    .kpi {
+      background: white;
+
+      border: 1px solid var(--border);
+      border-radius: 15px;
+
+      padding: 20px;
+    }
+
+
+    .kpi span {
+      display: block;
+
+      color: var(--gray);
+      font-size: 12px;
+
+      margin-bottom: 7px;
+    }
+
+
+    .kpi strong {
+      color: var(--blue);
+      font-size: 29px;
+    }
+
+
+    /* BOTONES */
+
+    button {
+      font-family: inherit;
+    }
+
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+
+      padding: 11px 16px;
+
+      cursor: pointer;
+
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+    }
+
+
+    .btn-primary:hover {
+      background: var(--blue-dark);
+    }
+
+
+    .btn-secondary {
+      background: white;
+      color: var(--blue);
+
+      border: 1px solid var(--border);
+    }
+
+
+    .btn-success {
+      background: var(--green);
+      color: white;
+    }
+
+
+    .logout {
+      background: white;
+
+      border: 1px solid var(--border);
+
+      color: var(--gray-dark);
+
+      padding: 9px 13px;
+      border-radius: 9px;
+
+      cursor: pointer;
+
+      font-weight: 700;
+    }
+
+
+    /* HERRAMIENTAS */
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      gap: 12px;
+
+      margin-bottom: 14px;
+    }
+
+
+    .toolbar-left {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+
+    /* TABLA */
+
+    .table-card {
+      background: white;
+
+      border: 1px solid var(--border);
+
+      border-radius: 16px;
+
+      overflow: hidden;
+    }
+
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      min-width: 950px;
+    }
+
+
+    th {
+      text-align: left;
+
+      background: #F8FAFC;
+
+      color: var(--gray-dark);
+
+      font-size: 11px;
+
+      padding: 14px;
+
+      border-bottom: 1px solid var(--border);
+    }
+
+
+    td {
+      padding: 14px;
+
+      font-size: 13px;
+
+      border-bottom: 1px solid #EDF1F4;
+    }
+
+
+    tbody tr:hover {
+      background: #FAFCFF;
+    }
+
+
+    .numero {
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 15px;
+    }
+
+
+    .ver {
+      background: none;
+      border: none;
+
+      color: var(--blue);
+
+      cursor: pointer;
+
+      font-weight: 900;
+    }
+
+
+    .empty {
+      text-align: center;
+      padding: 45px;
+      color: var(--gray);
+    }
+
+
+    /* ESTADOS */
+
+    .estado {
+      display: inline-block;
+
+      padding: 6px 10px;
+
+      border-radius: 20px;
+
+      font-size: 10px;
+
+      font-weight: 900;
+    }
+
+
+    .estado-nuevo {
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+
+    .estado-gestion {
+      color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+
+    .estado-cerrado {
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+
+    .estado-anulado {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+
+    /* MODAL */
+
+    .modal-background {
+      position: fixed;
+
+      inset: 0;
+
+      background: rgba(20, 30, 40, .58);
+
+      display: none;
+
+      overflow-y: auto;
+
+      padding: 25px;
+
+      z-index: 100;
+    }
+
+
+    .modal-background.active {
+      display: block;
+    }
+
+
+    .modal {
+      width: min(850px, 100%);
+
+      background: white;
+
+      margin: 20px auto;
+
+      border-radius: 18px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.20);
+    }
+
+
+    .modal-header {
+      padding: 20px 24px;
+
+      border-bottom: 1px solid var(--border);
+
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+    }
+
+
+    .modal-header h2 {
+      margin: 0;
+
+      color: var(--blue);
+
+      font-size: 21px;
+    }
+
+
+    .close {
+      border: none;
+      background: transparent;
+
+      color: var(--gray);
+
+      font-size: 27px;
+
+      cursor: pointer;
+    }
+
+
+    .modal-body {
+      padding: 24px;
+    }
+
+
+    /* DETALLE */
+
+    .detail-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 12px;
+
+      margin-bottom: 24px;
+    }
+
+
+    .detail {
+      border: 1px solid var(--border);
+
+      border-radius: 11px;
+
+      padding: 13px;
+    }
+
+
+    .detail.full {
+      grid-column: 1 / -1;
+    }
+
+
+    .detail span {
+      display: block;
+
+      color: var(--gray);
+
+      font-size: 10px;
+
+      margin-bottom: 5px;
+
+      text-transform: uppercase;
+    }
+
+
+    .detail strong {
+      font-size: 13px;
+
+      line-height: 1.5;
+    }
+
+
+    /* GESTIÓN */
+
+    .form-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap: 14px;
+    }
+
+
+    .field {
+      display: flex;
+      flex-direction: column;
+
+      gap: 6px;
+    }
+
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+
+    .field label {
+      color: var(--gray-dark);
+
+      font-size: 12px;
+
+      font-weight: 700;
+    }
+
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+
+      padding: 11px 12px;
+
+      border: 1px solid #CDD5DE;
+
+      border-radius: 9px;
+
+      font-family: inherit;
+
+      font-size: 13px;
+    }
+
+
+    .field textarea {
+      min-height: 100px;
+
+      resize: vertical;
+    }
+
+
+    .modal-actions {
+      margin-top: 22px;
+      padding-top: 18px;
+
+      border-top: 1px solid var(--border);
+
+      display: flex;
+
+      gap: 10px;
+
+      justify-content: flex-end;
+
+      flex-wrap: wrap;
+    }
+
+
+    @media (max-width: 750px) {
+
+      .header-container {
+        padding: 10px 0;
+      }
+
+
+      .brand-info {
+        display: none;
+      }
+
+
+      .usuario-box span {
+        display: none;
+      }
+
+
+      .kpis {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+
+      .detail-grid,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+
+      .detail.full,
+      .field.full {
+        grid-column: auto;
+      }
+
+
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+
+      .toolbar-left {
+        width: 100%;
+      }
+
+
+      .toolbar-left .btn {
+        flex: 1;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+  <div class="header-container">
+
+    <div class="brand">
+
+      <img
+        src="assets/logo-esm.png"
+        alt="ESM"
+        class="logo"
+      >
+
+      <div class="brand-info">
+
+        <strong>
+          Administración SSMA
+        </strong>
+
+        <span id="faenaHeader">
+          Verificando acceso...
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="usuario-box">
+
+      <span>
+        Usuario:
+        <strong id="usuarioNombre">
+          ...
+        </strong>
+      </span>
+
+      <button
+        id="logout"
+        class="logout"
+      >
+        Cerrar sesión
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+
+  <div class="tag">
+    GESTIÓN DE REPORTES
+  </div>
+
+
+  <h1>
+    Consulta y Participación
+  </h1>
+
+
+  <p class="subtitle">
+    Seguimiento y gestión de reportes correspondientes a tu faena.
+  </p>
+
+
+  <!-- KPI -->
+
+  <section class="kpis">
+
+    <div class="kpi">
+
+      <span>Total reportes</span>
+
+      <strong id="kpiTotal">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="kpi">
+
+      <span>Nuevos</span>
+
+      <strong id="kpiNuevos">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="kpi">
+
+      <span>En gestión</span>
+
+      <strong id="kpiGestion">
+        0
+      </strong>
+
+    </div>
+
+
+    <div class="kpi">
+
+      <span>Cerrados</span>
+
+      <strong id="kpiCerrados">
+        0
+      </strong>
+
+    </div>
+
+  </section>
+
+
+  <!-- BOTONES -->
+
+  <div class="toolbar">
+
+    <div class="toolbar-left">
+
+      <button
+        class="btn btn-secondary"
+        onclick="cargarReportes()"
+      >
+        ↻ Actualizar
+      </button>
+
+
+      <button
+        class="btn btn-primary"
+        onclick="exportarExcel()"
+      >
+        📊 Exportar Excel
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- TABLA -->
+
+  <section class="table-card">
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>N.º</th>
+
+            <th>Fecha</th>
+
+            <th>Faena</th>
+
+            <th>Tipo</th>
+
+            <th>Lugar</th>
+
+            <th>Estado</th>
+
+            <th>Responsable</th>
+
+            <th>Acción</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="tablaReportes">
+
+          <tr>
+
+            <td
+              colspan="8"
+              class="empty"
+            >
+              Cargando reportes...
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+
+</main>
+
+
+
+<!-- ================================
+     VENTANA DEL REPORTE
+================================ -->
+
+
+<div
+  id="modalBackground"
+  class="modal-background"
+>
+
+  <div class="modal">
+
+
+    <div class="modal-header">
+
+      <h2 id="modalTitulo">
+        Reporte
+      </h2>
+
+      <button
+        class="close"
+        onclick="cerrarModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="modal-body">
+
+
+      <!-- DATOS ORIGINALES -->
+
+      <div class="detail-grid">
+
+
+        <div class="detail">
+
+          <span>N.º Reporte</span>
+
+          <strong id="dNumero"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>Fecha</span>
+
+          <strong id="dFecha"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>Faena</span>
+
+          <strong id="dFaena"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>Tipo</span>
+
+          <strong id="dTipo"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>Trabajador</span>
+
+          <strong id="dNombre"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>RUT</span>
+
+          <strong id="dRut"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>Cargo</span>
+
+          <strong id="dCargo"></strong>
+
+        </div>
+
+
+        <div class="detail">
+
+          <span>Lugar</span>
+
+          <strong id="dLugar"></strong>
+
+        </div>
+
+
+        <div class="detail full">
+
+          <span>Situación detectada</span>
+
+          <strong id="dDetalles"></strong>
+
+        </div>
+
+
+        <div class="detail full">
+
+          <span>Descripción del trabajador</span>
+
+          <strong id="dDescripcion"></strong>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- GESTIÓN ADMINISTRADOR -->
+
+      <div class="form-grid">
+
+
+        <div class="field">
+
+          <label for="estado">
+            Estado
+          </label>
+
+          <select id="estado">
+
+            <option value="NUEVO">
+              Nuevo
+            </option>
+
+            <option value="RECIBIDO">
+              Recibido
+            </option>
+
+            <option value="EN ANALISIS">
+              En análisis
+            </option>
+
+            <option value="EN GESTION">
+              En gestión
+            </option>
+
+            <option value="PENDIENTE VERIFICACION">
+              Pendiente verificación
+            </option>
+
+            <option value="CERRADO">
+              Cerrado
+            </option>
+
+            <option value="ANULADO">
+              Anulado
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="responsable">
+            Responsable
+          </label>
+
+          <input
+            id="responsable"
+            type="text"
+            placeholder="Ej.: Ronal Vargas"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="fechaCompromiso">
+            Fecha compromiso
+          </label>
+
+          <input
+            id="fechaCompromiso"
+            type="date"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="planAccion">
+            Gestión / Plan de acción
+          </label>
+
+          <textarea
+            id="planAccion"
+            placeholder="Indica qué se realizó o qué acciones serán implementadas..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="respuestaPublica">
+            Comentario visible para el trabajador
+          </label>
+
+          <textarea
+            id="respuestaPublica"
+            placeholder="Ej.: Se realizó inspección del área y se corrigió la condición informada."
+          ></textarea>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="modal-actions">
+
+
+        <button
+          class="btn btn-secondary"
+          onclick="descargarPDF()"
+        >
+          📄 Descargar PDF
+        </button>
+
+
+        <button
+          class="btn btn-primary"
+          onclick="guardarCambios(false)"
+        >
+          Guardar cambios
+        </button>
+
+
+        <button
+          class="btn btn-success"
+          onclick="guardarCambios(true)"
+        >
+          ✓ Cerrar reporte
+        </button>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- LIBRERÍAS -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+
+
+<script>
+
+
+const SUPABASE_URL =
+  "https://sbaasbxflxtolguduzkp.supabase.co";
+
+
+const SUPABASE_KEY =
+  "sb_publishable_qeMGZUxT6VzUkpjKQm76WQ_yXwHBgnH";
+
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+let reportes = [];
+
+let reporteActual = null;
+
+
+
+/* ==================================
+   INICIAR PANEL
+================================== */
+
+
+async function iniciarPanel() {
+
+
+  const {
+    data: sessionData
+  } =
+    await supabaseClient.auth.getSession();
+
+
+  if (!sessionData.session) {
+
+    window.location.href =
+      "admin-login.html";
+
+    return;
+
+  }
+
+
+  /* PERFIL */
+
+  const {
+    data: perfil,
+    error: perfilError
+  } =
+    await supabaseClient
+      .from("cp_perfiles")
+      .select(
+        "nombre, rol, activo"
+      )
+      .single();
+
+
+  if (
+    perfilError ||
+    !perfil ||
+    !perfil.activo
+  ) {
+
+    await supabaseClient.auth.signOut();
+
+    window.location.href =
+      "admin-login.html";
+
+    return;
+
+  }
+
+
+  document
+    .getElementById("usuarioNombre")
+    .textContent =
+      perfil.nombre;
+
+
+  /* FAENA AUTORIZADA */
+
+  const {
+    data: faenas
+  } =
+    await supabaseClient
+      .from("cp_faenas")
+      .select("nombre");
+
+
+  const nombres =
+    faenas && faenas.length
+      ? faenas
+          .map(f => f.nombre)
+          .join(", ")
+      : "-";
+
+
+  document
+    .getElementById("faenaHeader")
+    .textContent =
+      "Acceso: " + nombres;
+
+
+  await cargarReportes();
+
+}
+
+
+
+/* ==================================
+   CARGAR REPORTES
+================================== */
+
+
+async function cargarReportes() {
+
+
+  const tbody =
+    document.getElementById(
+      "tablaReportes"
+    );
+
+
+  tbody.innerHTML =
+    `
+      <tr>
+        <td
+          colspan="8"
+          class="empty"
+        >
+          Cargando reportes...
+        </td>
+      </tr>
+    `;
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("cp_reportes")
+      .select(`
+        id,
+        numero_reporte,
+        fecha_reporte,
+        nombre,
+        rut,
+        cargo,
+        lugar,
+        tipo,
+        detalles,
+        descripcion,
+        estado,
+        responsable,
+        plan_accion,
+        fecha_compromiso,
+        respuesta_publica,
+        fecha_cierre,
+        created_at,
+        updated_at,
+        cp_faenas (
+          nombre
+        )
+      `)
+      .order(
+        "created_at",
+        {
+          ascending: false
+        }
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Error cargando reportes:",
+      error
+    );
+
+
+    tbody.innerHTML =
+      `
+        <tr>
+          <td
+            colspan="8"
+            class="empty"
+          >
+            No fue posible cargar los reportes.
+          </td>
+        </tr>
+      `;
+
+    return;
+
+  }
+
+
+  reportes =
+    data || [];
+
+
+  actualizarKPI();
+
+  dibujarTabla();
+
+}
+
+
+
+/* ==================================
+   KPI
+================================== */
+
+
+function actualizarKPI() {
+
+
+  document
+    .getElementById("kpiTotal")
+    .textContent =
+      reportes.length;
+
+
+  document
+    .getElementById("kpiNuevos")
+    .textContent =
+      reportes.filter(
+        r =>
+          r.estado === "NUEVO" ||
+          r.estado === "RECIBIDO"
+      ).length;
+
+
+  document
+    .getElementById("kpiGestion")
+    .textContent =
+      reportes.filter(
+        r =>
+          r.estado === "EN ANALISIS" ||
+          r.estado === "EN GESTION" ||
+          r.estado === "PENDIENTE VERIFICACION"
+      ).length;
+
+
+  document
+    .getElementById("kpiCerrados")
+    .textContent =
+      reportes.filter(
+        r =>
+          r.estado === "CERRADO"
+      ).length;
+
+}
+
+
+
+/* ==================================
+   TABLA
+================================== */
+
+
+function dibujarTabla() {
+
+
+  const tbody =
+    document.getElementById(
+      "tablaReportes"
+    );
+
+
+  if (!reportes.length) {
+
+    tbody.innerHTML =
+      `
+        <tr>
+          <td
+            colspan="8"
+            class="empty"
+          >
+            No existen reportes asociados a tu faena.
+          </td>
+        </tr>
+      `;
+
+    return;
+
+  }
+
+
+  tbody.innerHTML =
+    reportes.map(
+      reporte => {
+
+
+        const faena =
+          reporte.cp_faenas
+            ? reporte.cp_faenas.nombre
+            : "-";
+
+
+        return `
+
+          <tr>
+
+            <td class="numero">
+              ${escapeHTML(
+                reporte.numero_reporte
+              )}
+            </td>
+
+
+            <td>
+              ${formatearFecha(
+                reporte.fecha_reporte ||
+                reporte.created_at
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                faena
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                reporte.tipo
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                reporte.lugar
+              )}
+            </td>
+
+
+            <td>
+              ${etiquetaEstado(
+                reporte.estado
+              )}
+            </td>
+
+
+            <td>
+              ${escapeHTML(
+                reporte.responsable ||
+                "Sin asignar"
+              )}
+            </td>
+
+
+            <td>
+
+              <button
+                class="ver"
+                onclick="abrirReporte('${reporte.id}')"
+              >
+                Ver / Gestionar
+              </button>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    )
+    .join("");
+
+}
+
+
+
+/* ==================================
+   ABRIR REPORTE
+================================== */
+
+
+function abrirReporte(id) {
+
+
+  reporteActual =
+    reportes.find(
+      r => r.id === id
+    );
+
+
+  if (!reporteActual) {
+    return;
+  }
+
+
+  const faena =
+    reporteActual.cp_faenas
+      ? reporteActual.cp_faenas.nombre
+      : "-";
+
+
+  document
+    .getElementById("modalTitulo")
+    .textContent =
+      "Reporte N.º "
+      + reporteActual.numero_reporte;
+
+
+  document
+    .getElementById("dNumero")
+    .textContent =
+      reporteActual.numero_reporte;
+
+
+  document
+    .getElementById("dFecha")
+    .textContent =
+      formatearFecha(
+        reporteActual.fecha_reporte ||
+        reporteActual.created_at
+      );
+
+
+  document
+    .getElementById("dFaena")
+    .textContent =
+      faena;
+
+
+  document
+    .getElementById("dTipo")
+    .textContent =
+      reporteActual.tipo;
+
+
+  document
+    .getElementById("dNombre")
+    .textContent =
+      reporteActual.nombre;
+
+
+  document
+    .getElementById("dRut")
+    .textContent =
+      reporteActual.rut;
+
+
+  document
+    .getElementById("dCargo")
+    .textContent =
+      reporteActual.cargo;
+
+
+  document
+    .getElementById("dLugar")
+    .textContent =
+      reporteActual.lugar;
+
+
+  document
+    .getElementById("dDetalles")
+    .textContent =
+      reporteActual.detalles &&
+      reporteActual.detalles.length
+        ? reporteActual.detalles
+            .join(" · ")
+        : "Sin selección específica";
+
+
+  document
+    .getElementById("dDescripcion")
+    .textContent =
+      reporteActual.descripcion;
+
+
+  document
+    .getElementById("estado")
+    .value =
+      reporteActual.estado;
+
+
+  document
+    .getElementById("responsable")
+    .value =
+      reporteActual.responsable || "";
+
+
+  document
+    .getElementById("fechaCompromiso")
+    .value =
+      reporteActual.fecha_compromiso || "";
+
+
+  document
+    .getElementById("planAccion")
+    .value =
+      reporteActual.plan_accion || "";
+
+
+  document
+    .getElementById("respuestaPublica")
+    .value =
+      reporteActual.respuesta_publica || "";
+
+
+  document
+    .getElementById("modalBackground")
+    .classList
+    .add("active");
+
+}
+
+
+
+function cerrarModal() {
+
+  document
+    .getElementById("modalBackground")
+    .classList
+    .remove("active");
+
+}
+
+
+
+/* ==================================
+   GUARDAR / CERRAR
+================================== */
+
+
+async function guardarCambios(cerrar) {
+
+
+  if (!reporteActual) {
+    return;
+  }
+
+
+  const responsable =
+    document
+      .getElementById("responsable")
+      .value
+      .trim();
+
+
+  const plan =
+    document
+      .getElementById("planAccion")
+      .value
+      .trim();
+
+
+  const respuesta =
+    document
+      .getElementById("respuestaPublica")
+      .value
+      .trim();
+
+
+  let estado =
+    document
+      .getElementById("estado")
+      .value;
+
+
+  if (cerrar) {
+
+
+    if (!respuesta) {
+
+      alert(
+        "Antes de cerrar debes indicar qué gestión se realizó o una respuesta para el trabajador."
+      );
+
+      return;
+
+    }
+
+
+    estado =
+      "CERRADO";
+
+  }
+
+
+  const actualizacion = {
+
+    estado: estado,
+
+    responsable:
+      responsable || null,
+
+    plan_accion:
+      plan || null,
+
+    fecha_compromiso:
+      document
+        .getElementById("fechaCompromiso")
+        .value || null,
+
+    respuesta_publica:
+      respuesta || null,
+
+    fecha_cierre:
+      estado === "CERRADO"
+        ? new Date().toISOString()
+        : null
+
+  };
+
+
+  const {
+    error
+  } =
+    await supabaseClient
+      .from("cp_reportes")
+      .update(
+        actualizacion
+      )
+      .eq(
+        "id",
+        reporteActual.id
+      );
+
+
+  if (error) {
+
+    console.error(
+      error
+    );
+
+    alert(
+      "No fue posible guardar los cambios."
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    cerrar
+      ? "✅ Reporte cerrado correctamente."
+      : "✅ Cambios guardados correctamente."
+  );
+
+
+  cerrarModal();
+
+  await cargarReportes();
+
+}
+
+
+
+/* ==================================
+   EXPORTAR EXCEL
+================================== */
+
+
+function exportarExcel() {
+
+
+  if (!reportes.length) {
+
+    alert(
+      "No existen reportes para exportar."
+    );
+
+    return;
+
+  }
+
+
+  const datos =
+    reportes.map(
+      r => ({
+
+        "N.º Reporte":
+          r.numero_reporte,
+
+        "Fecha":
+          formatearFecha(
+            r.fecha_reporte ||
+            r.created_at
+          ),
+
+        "Faena":
+          r.cp_faenas
+            ? r.cp_faenas.nombre
+            : "",
+
+        "Tipo":
+          r.tipo,
+
+        "Lugar":
+          r.lugar,
+
+        "Estado":
+          r.estado,
+
+        "Responsable":
+          r.responsable || "",
+
+        "Fecha compromiso":
+          r.fecha_compromiso || "",
+
+        "Fecha cierre":
+          r.fecha_cierre
+            ? formatearFecha(
+                r.fecha_cierre
+              )
+            : "",
+
+        "Descripción":
+          r.descripcion,
+
+        "Gestión realizada":
+          r.plan_accion || "",
+
+        "Respuesta al trabajador":
+          r.respuesta_publica || ""
+
+      })
+    );
+
+
+  const hoja =
+    XLSX.utils.json_to_sheet(
+      datos
+    );
+
+
+  hoja["!cols"] = [
+
+    { wch: 12 },
+    { wch: 14 },
+    { wch: 20 },
+    { wch: 20 },
+    { wch: 25 },
+    { wch: 20 },
+    { wch: 22 },
+    { wch: 18 },
+    { wch: 18 },
+    { wch: 45 },
+    { wch: 45 },
+    { wch: 45 }
+
+  ];
+
+
+  const libro =
+    XLSX.utils.book_new();
+
+
+  XLSX.utils.book_append_sheet(
+    libro,
+    hoja,
+    "Reportes"
+  );
+
+
+  XLSX.writeFile(
+    libro,
+    "Resumen_Reportes_SSMA.xlsx"
+  );
+
+}
+
+
+
+/* ==================================
+   PDF INDIVIDUAL
+================================== */
+
+
+function descargarPDF() {
+
+
+  if (!reporteActual) {
+    return;
+  }
+
+
+  const {
+    jsPDF
+  } =
+    window.jspdf;
+
+
+  const pdf =
+    new jsPDF();
+
+
+  let y = 18;
+
+
+  function agregar(
+    titulo,
+    texto
+  ) {
+
+
+    if (y > 270) {
+
+      pdf.addPage();
+
+      y = 18;
+
+    }
+
+
+    pdf.setFont(
+      "helvetica",
+      "bold"
+    );
+
+
+    pdf.setFontSize(10);
+
+
+    pdf.text(
+      titulo,
+      15,
+      y
+    );
+
+
+    y += 6;
+
+
+    pdf.setFont(
+      "helvetica",
+      "normal"
+    );
+
+
+    const lineas =
+      pdf.splitTextToSize(
+        String(
+          texto || "-"
+        ),
+        180
+      );
+
+
+    pdf.text(
+      lineas,
+      15,
+      y
+    );
+
+
+    y +=
+      lineas.length * 5 + 6;
+
+  }
+
+
+  pdf.setFont(
+    "helvetica",
+    "bold"
+  );
+
+
+  pdf.setFontSize(16);
+
+
+  pdf.text(
+    "ESM - Consulta y Participación",
+    15,
+    y
+  );
+
+
+  y += 10;
+
+
+  pdf.setFontSize(13);
+
+
+  pdf.text(
+    "Reporte N.º "
+      + reporteActual.numero_reporte,
+    15,
+    y
+  );
+
+
+  y += 12;
+
+
+  agregar(
+    "Fecha",
+    formatearFecha(
+      reporteActual.fecha_reporte ||
+      reporteActual.created_at
+    )
+  );
+
+
+  agregar(
+    "Faena",
+    reporteActual.cp_faenas
+      ? reporteActual.cp_faenas.nombre
+      : "-"
+  );
+
+
+  agregar(
+    "Tipo",
+    reporteActual.tipo
+  );
+
+
+  agregar(
+    "Trabajador",
+    reporteActual.nombre
+  );
+
+
+  agregar(
+    "RUT",
+    reporteActual.rut
+  );
+
+
+  agregar(
+    "Cargo",
+    reporteActual.cargo
+  );
+
+
+  agregar(
+    "Lugar",
+    reporteActual.lugar
+  );
+
+
+  agregar(
+    "Situación detectada",
+    reporteActual.detalles &&
+    reporteActual.detalles.length
+      ? reporteActual.detalles
+          .join(" / ")
+      : "-"
+  );
+
+
+  agregar(
+    "Descripción",
+    reporteActual.descripcion
+  );
+
+
+  agregar(
+    "Estado",
+    reporteActual.estado
+  );
+
+
+  agregar(
+    "Responsable",
+    reporteActual.responsable
+  );
+
+
+  agregar(
+    "Gestión / Plan de acción",
+    reporteActual.plan_accion
+  );
+
+
+  agregar(
+    "Respuesta al trabajador",
+    reporteActual.respuesta_publica
+  );
+
+
+  agregar(
+    "Fecha de cierre",
+    reporteActual.fecha_cierre
+      ? formatearFecha(
+          reporteActual.fecha_cierre
+        )
+      : "-"
+  );
+
+
+  pdf.save(
+    "Reporte_"
+      + reporteActual.numero_reporte
+      + "_ESM.pdf"
+  );
+
+}
+
+
+
+/* ==================================
+   FUNCIONES AUXILIARES
+================================== */
+
+
+function formatearFecha(fecha) {
+
+
+  if (!fecha) {
+    return "-";
+  }
+
+
+  return new Date(
+    fecha
+  ).toLocaleDateString(
+    "es-CL",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }
+  );
+
+}
+
+
+
+function etiquetaEstado(
+  estado
+) {
+
+
+  let clase =
+    "estado-nuevo";
+
+
+  if (
+    estado === "EN ANALISIS" ||
+    estado === "EN GESTION" ||
+    estado === "PENDIENTE VERIFICACION"
+  ) {
+
+    clase =
+      "estado-gestion";
+
+  }
+
+
+  if (
+    estado === "CERRADO"
+  ) {
+
+    clase =
+      "estado-cerrado";
+
+  }
+
+
+  if (
+    estado === "ANULADO"
+  ) {
+
+    clase =
+      "estado-anulado";
+
+  }
+
+
+  return `
+    <span class="estado ${clase}">
+      ${escapeHTML(
+        estado || "NUEVO"
+      )}
+    </span>
+  `;
+
+}
+
+
+
+function escapeHTML(
+  valor
+) {
+
+
+  return String(
+    valor ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+
+/* ==================================
+   CERRAR SESIÓN
+================================== */
+
+
+document
+  .getElementById("logout")
+  .addEventListener(
+    "click",
+    async function() {
+
+
+      await supabaseClient
+        .auth
+        .signOut();
+
+
+      window.location.href =
+        "admin-login.html";
+
+    }
+  );
+
+
+
+/* INICIAR */
+
+iniciarPanel();
+
+
+</script>
+
+
+</body>
+
+</html>
