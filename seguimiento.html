@@ -629,106 +629,74 @@
     >
       Consultar reporte
     </button>
+<!-- RESULTADO REAL -->
+
+<div
+  id="resultado"
+  class="resultado"
+>
+
+  <div
+    id="resultadoEstado"
+    class="estado"
+  >
+    -
+  </div>
 
 
+  <div class="resultado-grid">
 
-    <!-- RESULTADO DE PRUEBA -->
-
-    <div
-      id="resultado"
-      class="resultado"
-    >
-
-      <div class="estado">
-        EN GESTIÓN
-      </div>
-
-
-      <div class="resultado-grid">
-
-        <div class="dato">
-
-          <span>
-            N.º reporte
-          </span>
-
-         <strong id="resultadoNumero">
-  027
-</strong>
-
-        </div>
-
-
-        <div class="dato">
-
-          <span>
-            Fecha
-          </span>
-
-          <strong>
-            23/09/2026
-          </strong>
-
-        </div>
-
-
-        <div class="dato">
-
-          <span>
-            Faena
-          </span>
-
-          <strong>
-            Ejemplo
-          </strong>
-
-        </div>
-
-
-        <div class="dato">
-
-          <span>
-            Tipo
-          </span>
-
-          <strong>
-            Seguridad
-          </strong>
-
-        </div>
-
-
-        <div class="dato">
-
-          <span>
-            Responsable
-          </span>
-
-          <strong>
-            En revisión
-          </strong>
-
-        </div>
-
-
-        <div class="dato">
-
-          <span>
-            Última actualización
-          </span>
-
-          <strong>
-            Pendiente
-          </strong>
-
-        </div>
-
-      </div>
-
+    <div class="dato">
+      <span>N.º reporte</span>
+      <strong id="resultadoNumero">-</strong>
     </div>
 
+    <div class="dato">
+      <span>Fecha</span>
+      <strong id="resultadoFecha">-</strong>
+    </div>
 
+    <div class="dato">
+      <span>Faena</span>
+      <strong id="resultadoFaena">-</strong>
+    </div>
 
+    <div class="dato">
+      <span>Tipo</span>
+      <strong id="resultadoTipo">-</strong>
+    </div>
+
+    <div class="dato">
+      <span>Responsable</span>
+      <strong id="resultadoResponsable">-</strong>
+    </div>
+
+    <div class="dato">
+      <span>Última actualización</span>
+      <strong id="resultadoActualizacion">-</strong>
+    </div>
+
+    <div
+      class="dato"
+      style="grid-column: 1 / -1;"
+    >
+      <span>Gestión / respuesta</span>
+      <strong id="resultadoRespuesta">-</strong>
+    </div>
+
+    <div
+      id="bloqueCierre"
+      class="dato"
+      style="grid-column: 1 / -1; display:none;"
+    >
+      <span>Fecha de cierre</span>
+      <strong id="resultadoFechaCierre">-</strong>
+    </div>
+
+  </div>
+
+</div>
+   
     <!-- ACCESO ADMINISTRACIÓN -->
 
     <div class="admin-area">
@@ -763,7 +731,6 @@
       i
     </div>
 
-    <p>
 <p>
   Ingresa el número entregado al generar tu reporte.
   Podrás revisar su estado, acciones informadas y
@@ -787,10 +754,24 @@
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-  function consultarReporte() {
+const SUPABASE_URL =
+  "https://sbaasbxflxtolguduzkp.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_qeMGZUxT6VzUkpjKQm76WQ_yXwHBgnH";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+async function consultarReporte() {
 
   const numero =
     document
@@ -799,10 +780,10 @@
       .trim();
 
 
-  if (!/^(?!000)\d{3}$/.test(numero)) {
+  if (!/^\d{3}$/.test(numero)) {
 
     alert(
-      "Ingresa un número de reporte válido de 3 dígitos. Ejemplo: 027."
+      "Ingresa un número de reporte válido de 3 dígitos. Ejemplo: 002."
     );
 
     return;
@@ -810,27 +791,292 @@
   }
 
 
-    /*
-      POR AHORA ES SOLO UNA DEMOSTRACIÓN.
+  const boton =
+    document.querySelector(
+      ".btn-consultar"
+    );
 
-      En el siguiente paso esta función
-      consultará Supabase utilizando:
 
-      N.º de reporte.
-    */
+  boton.disabled = true;
+  boton.textContent =
+    "Consultando...";
 
-document
-  .getElementById("resultadoNumero")
-  .textContent = numero;
-    
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.rpc(
+        "cp_consultar_reporte_publico",
+        {
+          p_numero: numero
+        }
+      );
+
+
+    if (error) {
+      throw error;
+    }
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      document
+        .getElementById("resultado")
+        .classList
+        .remove("active");
+
+
+      alert(
+        "No se encontró un reporte con el número "
+        + numero
+        + "."
+      );
+
+      return;
+
+    }
+
+
+    const reporte =
+      data[0];
+
+
+    document
+      .getElementById(
+        "resultadoNumero"
+      )
+      .textContent =
+        reporte.numero_reporte;
+
+
+    document
+      .getElementById(
+        "resultadoFecha"
+      )
+      .textContent =
+        formatearFecha(
+          reporte.fecha_reporte
+        );
+
+
+    document
+      .getElementById(
+        "resultadoFaena"
+      )
+      .textContent =
+        reporte.faena || "-";
+
+
+    document
+      .getElementById(
+        "resultadoTipo"
+      )
+      .textContent =
+        reporte.tipo || "-";
+
+
+    document
+      .getElementById(
+        "resultadoResponsable"
+      )
+      .textContent =
+        reporte.responsable ||
+        "En revisión";
+
+
+    document
+      .getElementById(
+        "resultadoActualizacion"
+      )
+      .textContent =
+        reporte.updated_at
+          ? formatearFechaHora(
+              reporte.updated_at
+            )
+          : "-";
+
+
+    document
+      .getElementById(
+        "resultadoRespuesta"
+      )
+      .textContent =
+        reporte.respuesta_publica ||
+        "El reporte se encuentra en revisión. Aún no se ha registrado una respuesta de cierre.";
+
+
+    const estado =
+      document.getElementById(
+        "resultadoEstado"
+      );
+
+
+    estado.textContent =
+      reporte.estado || "NUEVO";
+
+
+    if (
+      reporte.estado === "CERRADO"
+    ) {
+
+      estado.style.background =
+        "#EAF6EE";
+
+      estado.style.color =
+        "#168447";
+
+    } else if (
+      reporte.estado === "ANULADO"
+    ) {
+
+      estado.style.background =
+        "#FDECEB";
+
+      estado.style.color =
+        "#B3261E";
+
+    } else if (
+      reporte.estado ===
+        "EN GESTION" ||
+      reporte.estado ===
+        "EN ANALISIS" ||
+      reporte.estado ===
+        "PENDIENTE VERIFICACION"
+    ) {
+
+      estado.style.background =
+        "#FFF3DF";
+
+      estado.style.color =
+        "#A55D00";
+
+    } else {
+
+      estado.style.background =
+        "#D4DBEA";
+
+      estado.style.color =
+        "#004A97";
+
+    }
+
+
+    const bloqueCierre =
+      document.getElementById(
+        "bloqueCierre"
+      );
+
+
+    if (
+      reporte.fecha_cierre
+    ) {
+
+      bloqueCierre.style.display =
+        "block";
+
+
+      document
+        .getElementById(
+          "resultadoFechaCierre"
+        )
+        .textContent =
+          formatearFechaHora(
+            reporte.fecha_cierre
+          );
+
+    } else {
+
+      bloqueCierre.style.display =
+        "none";
+
+    }
+
+
     document
       .getElementById("resultado")
       .classList
       .add("active");
 
+
+  } catch (error) {
+
+    console.error(
+      "Error consultando reporte:",
+      error
+    );
+
+
+    alert(
+      "No fue posible consultar el reporte.\n\n"
+      + error.message
+    );
+
+
+  } finally {
+
+    boton.disabled = false;
+
+    boton.textContent =
+      "Consultar reporte";
+
   }
 
+}
+
+
+
+function formatearFecha(fecha) {
+
+  if (!fecha) {
+    return "-";
+  }
+
+
+  return new Date(
+    fecha + "T12:00:00"
+  ).toLocaleDateString(
+    "es-CL",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric"
+    }
+  );
+
+}
+
+
+
+function formatearFechaHora(fecha) {
+
+  if (!fecha) {
+    return "-";
+  }
+
+
+  return new Date(
+    fecha
+  ).toLocaleString(
+    "es-CL",
+    {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
+
+}
+
 </script>
+
 
 
 </body>
